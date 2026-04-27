@@ -47,17 +47,19 @@ namespace PortfolioApp.Data
                     SortOrder       INT NOT NULL DEFAULT 0
                 )");
 
-            // Admin User (password: Admin@1234!)
-            // BCrypt hash of "Admin@1234!" with work factor 12
+            
+            // Bcrypt Hash and Admin User
             var existingAdmin = ExecuteScalar(conn,
                 "SELECT COUNT(*) FROM AdminUsers WHERE Username = 'admin'");
 
             if (Convert.ToInt32(existingAdmin) == 0)
             {
-                var hash = BCrypt.Net.BCrypt.HashPassword("Admin@1234!", workFactor: 12);
+                var username = Environment.GetEnvironmentVariable("ADMIN_USERNAME");
+                var password = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+                var hash = BCrypt.Net.BCrypt.HashPassword(password, workFactor: 12);
                 using var cmd = new SqlCommand(
                     "INSERT INTO AdminUsers (Username, PasswordHash) VALUES (@u, @h)", conn);
-                cmd.Parameters.AddWithValue("@u", "admin");
+                cmd.Parameters.AddWithValue("@u", username);
                 cmd.Parameters.AddWithValue("@h", hash);
                 cmd.ExecuteNonQuery();
             }
