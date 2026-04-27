@@ -1,0 +1,193 @@
+/* ============================================================
+   CSS Custom Properties
+   ============================================================ */
+:root {
+    --primary:       #0d6efd;
+    --primary-dark:  #0a58ca;
+    --gray-50:       #f8f9fa;
+    --gray-100:      #e9ecef;
+    --gray-600:      #6c757d;
+    --white:         #ffffff;
+    --shadow-sm:     0 2px 8px rgba(0,0,0,.08);
+    --shadow-md:     0 4px 20px rgba(0,0,0,.12);
+    --transition:    all .25s ease;
+    --radius:        .75rem;
+}
+
+/* ============================================================
+   Global
+   ============================================================ */
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #212529;
+}
+
+/* ============================================================
+   Navbar
+   ============================================================ */
+#mainNav {
+    transition: var(--transition);
+    backdrop-filter: blur(8px);
+}
+
+#mainNav .nav-link {
+    font-weight: 500;
+    letter-spacing: .02em;
+    transition: opacity .2s;
+}
+
+#mainNav .nav-link:hover { opacity: .75; }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d6efd 0%, #0a3d91 60%, #051a3e 100%);
+    position: relative;
+    padding-top: 76px; /* navbar height */
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, rgba(255,255,255,.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid rgba(255,255,255,.3);
+}
+
+.hero-socials a {
+    opacity: .8;
+    transition: opacity .2s, transform .2s;
+}
+
+.hero-socials a:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+/* ============================================================
+   Section scaffolding
+   ============================================================ */
+.section-white { background: var(--white); }
+.section-gray  { background: var(--gray-50); }
+
+.section-badge {
+    display: inline-block;
+    letter-spacing: .1em;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 2px;
+}
+
+/* ============================================================
+   About
+   ============================================================ */
+.stat-card {
+    border: 1px solid var(--gray-100);
+    transition: var(--transition);
+}
+.stat-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+
+/* ============================================================
+   Skills
+   ============================================================ */
+.skill-card {
+    border: 1px solid var(--gray-100);
+    transition: var(--transition);
+}
+.skill-card:hover {
+    box-shadow: var(--shadow-sm);
+    border-color: rgba(13,110,253,.25);
+    transform: translateY(-2px);
+}
+
+.skill-actions { opacity: 0; transition: opacity .2s; }
+.skill-card:hover .skill-actions { opacity: 1; }
+
+/* ============================================================
+   Projects
+   ============================================================ */
+.project-card {
+    border-radius: var(--radius) !important;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.project-card:hover {
+    box-shadow: var(--shadow-md) !important;
+    transform: translateY(-4px);
+}
+
+.card-img-placeholder {
+    overflow: hidden;
+}
+
+/* ============================================================
+   Contact
+   ============================================================ */
+.contact-card {
+    border: 1px solid var(--gray-100);
+    transition: var(--transition);
+}
+.contact-card:hover {
+    box-shadow: var(--shadow-sm);
+    border-color: rgba(13,110,253,.25);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   Login Page
+   ============================================================ */
+.login-page {
+    background: linear-gradient(135deg, #e9f0fe 0%, #f8f9fa 50%, #dce6fb 100%);
+    min-height: 100vh;
+}
+
+.login-card {
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 8px 40px rgba(13,110,253,.15);
+}
+
+.login-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(13,110,253,.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.login-btn {
+    border-radius: .6rem;
+    letter-spacing: .03em;
+    transition: var(--transition);
+}
+
+.login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(13,110,253,.4); }
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+.progress-bar { border-radius: 99px; }
+.progress     { border-radius: 99px; background-color: var(--gray-100); }
+
+/* Smooth scroll offset for fixed navbar */
+section, [id] { scroll-margin-top: 76px; }

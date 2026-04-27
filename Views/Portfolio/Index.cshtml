@@ -1,0 +1,447 @@
+@model PortfolioViewModel
+@{
+    ViewData["Title"] = "Portfolio";
+}
+
+@* // Navbar *@
+<div class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm" id="mainNav">
+    <div class="container">
+        <div class="navbar-brand fw-bold fs-4">
+            <i class="bi bi-code-slash me-2"></i>Portfolio
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#hero">Home</a>
+                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#skills">Skills</a>
+                <a class="nav-link" href="#projects">Projects</a>
+                <a class="nav-link" href="#contact">Contact</a>
+                <div class="nav-item dropdown ms-lg-3">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle me-1"></i>@User.Identity?.Name
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <div class="dropdown-item-text text-muted small px-3 py-1">Signed in as <strong>@User.Identity?.Name</strong></div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addProjectModal">
+                            <i class="bi bi-plus-circle me-2"></i>Add Project
+                        </a>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addSkillModal">
+                            <i class="bi bi-plus-square me-2"></i>Add Skill
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="m-0">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="dropdown-item text-danger">
+                                <i class="bi bi-box-arrow-right me-2"></i>Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* // Hero *@
+<div class="hero-section d-flex align-items-center" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative text-white text-center">
+        <div class="hero-content">
+            <div class="hero-avatar mx-auto mb-4">
+                <i class="bi bi-person-fill display-1"></i>
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Aimilios Tsiaprazis</h1>
+            <p class="lead mb-4 opacity-75">Junior Software Developer &amp; Problem Solver</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#projects" class="btn btn-light btn-lg px-4 fw-semibold">
+                    <i class="bi bi-folder2-open me-2"></i>View Work
+                </a>
+                <a href="#contact" class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-envelope me-2"></i>Get In Touch
+                </a>
+            </div>
+            <div class="hero-socials mt-4">
+                <a href="https://github.com/AimiliosTsiaprazis/" class="text-white me-3 fs-4"><i class="bi bi-github"></i></a>
+                <a href="#" class="text-white me-3 fs-4"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="text-white fs-4"><i class="bi bi-twitter-x"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* // About *@
+<div class="section-white py-5" id="about">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5 text-center">
+                <div class="about-avatar mx-auto">
+                    <i class="bi bi-person-circle text-primary" style="font-size:8rem;"></i>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="section-badge text-primary fw-semibold small text-uppercase mb-2">About Me</div>
+                <h2 class="display-6 fw-bold mb-4">Digital Experience</h2>
+                <p class="text-muted mb-3">
+                    I’m currently working on different projects, including C#, Databases with SQL & Supabase, Angular, Html-Css-Php-JavaScript, 
+                    Python AI Development & Visualizations & Excel, and CMS like Typo3 and WordPress. Also using GitHub, GitLab and Jira-Confluence 
+                    for Structured Documentation and Work. I also have basic experience in hosting using Plesk, 
+                    Hosteurope, SchlundTech, Azure, Netlify and Vercel as well as first experience working with Docker containers.
+                </p>
+                <p class="text-muted mb-4">
+                    When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects,
+                    and always learning new stuff.
+                </p>
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-6">
+                        <div class="stat-card text-center p-3 rounded-3 bg-primary bg-opacity-10">
+                            <div class="stat-number fw-bold text-primary fs-3">30+</div>
+                            <div class="text-muted small">Projects Completed</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="stat-card text-center p-3 rounded-3 bg-primary bg-opacity-10">
+                            <div class="stat-number fw-bold text-primary fs-3">1+</div>
+                            <div class="text-muted small">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#contact" class="btn btn-primary px-4">
+                    <i class="bi bi-download me-2"></i>Download CV
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* // Skills *@
+<div class="section-gray py-5" id="skills">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <div class="section-badge text-primary fw-semibold small text-uppercase mb-2">Expertise</div>
+            <h2 class="display-6 fw-bold">Technical Skills</h2>
+            <p class="text-muted">Technologies I work with every day</p>
+        </div>
+
+        @if (Model.SkillCategories.Any())
+        {
+            foreach (var category in Model.SkillCategories)
+            {
+                var catSkills = Model.Skills.Where(s => s.Category == category).ToList();
+                <div class="mb-5">
+                    <h5 class="text-primary fw-bold mb-3">
+                        <i class="bi bi-folder me-2"></i>@category
+                    </h5>
+                    <div class="row g-3">
+                        @foreach (var skill in catSkills)
+                        {
+                            <div class="col-md-6 col-lg-4">
+                                <div class="skill-card p-3 bg-white rounded-3 shadow-sm h-100" data-skill-id="@skill.Id">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <span class="fw-semibold">@skill.Name</span>
+                                        <div class="skill-actions">
+                                            <button class="btn btn-sm btn-link text-secondary p-0 me-1 btn-edit-skill"
+                                                    data-id="@skill.Id"
+                                                    data-name="@skill.Name"
+                                                    data-category="@skill.Category"
+                                                    data-level="@skill.ProficiencyLevel"
+                                                    title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-link text-danger p-0 btn-delete-skill"
+                                                    data-id="@skill.Id"
+                                                    data-name="@skill.Name"
+                                                    title="Delete">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="progress" style="height:8px;" role="progressbar" aria-valuenow="@skill.ProficiencyLevel" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-primary" style="width:@skill.ProficiencyLevel%"></div>
+                                    </div>
+                                    <small class="text-muted">@skill.ProficiencyLevel%</small>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center text-muted py-5">
+                <i class="bi bi-tools fs-1 d-block mb-3"></i>
+                <p>No skills added yet. Add your first skill from the menu above.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* // Projects *@
+<div class="section-white py-5" id="projects">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <div class="section-badge text-primary fw-semibold small text-uppercase mb-2">Work</div>
+            <h2 class="display-6 fw-bold">My Projects</h2>
+            <p class="text-muted">Things I've built and shipped</p>
+        </div>
+
+        <div class="row g-4" id="projectsGrid">
+            @foreach (var project in Model.Projects)
+            {
+                <div class="col-md-6 col-lg-4 project-item" id="project-card-@project.Id">
+                    <div class="card project-card h-100 border-0 shadow-sm">
+                        <div class="card-img-placeholder bg-primary bg-opacity-10 d-flex align-items-center justify-content-center" style="height:160px;">
+                            @if (!string.IsNullOrEmpty(project.ImageUrl))
+                            {
+                                <img src="@project.ImageUrl" class="img-fluid" alt="@project.Title" style="max-height:160px;object-fit:cover;width:100%;" />
+                            }
+                            else
+                            {
+                                <i class="bi bi-laptop text-primary" style="font-size:3rem;"></i>
+                            }
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title fw-bold mb-0">@project.Title</h5>
+                                @if (project.IsFeatured)
+                                {
+                                    <span class="badge bg-warning text-dark ms-2">Featured</span>
+                                }
+                            </div>
+                            <p class="card-text text-muted small flex-grow-1">@project.Description</p>
+                            @if (!string.IsNullOrEmpty(project.TechStack))
+                            {
+                                <div class="mb-3">
+                                    @foreach (var tech in project.TechStack.Split(','))
+                                    {
+                                        <span class="badge bg-primary bg-opacity-10 text-primary me-1 mb-1">@tech.Trim()</span>
+                                    }
+                                </div>
+                            }
+                            <div class="d-flex gap-2 mt-auto flex-wrap">
+                                @if (!string.IsNullOrEmpty(project.ProjectUrl))
+                                {
+                                    <a href="@project.ProjectUrl" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i>Live
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                                {
+                                    <a href="@project.GitHubUrl" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-github me-1"></i>Code
+                                    </a>
+                                }
+                                <button class="btn btn-sm btn-outline-primary ms-auto btn-edit-project"
+                                        data-id="@project.Id"
+                                        data-title="@project.Title"
+                                        data-description="@project.Description"
+                                        data-techstack="@project.TechStack"
+                                        data-projecturl="@project.ProjectUrl"
+                                        data-githuburl="@project.GitHubUrl"
+                                        data-imageurl="@project.ImageUrl"
+                                        data-isfeatured="@project.IsFeatured.ToString().ToLower()">
+                                    <i class="bi bi-pencil me-1"></i>Edit
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger btn-delete-project"
+                                        data-id="@project.Id"
+                                        data-title="@project.Title">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (!Model.Projects.Any())
+            {
+                <div class="col-12 text-center text-muted py-5">
+                    <i class="bi bi-folder-x fs-1 d-block mb-3"></i>
+                    <p>No projects yet. Add your first project from the menu above.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@* // Contact *@
+<div class="section-gray py-5" id="contact">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <div class="section-badge text-primary fw-semibold small text-uppercase mb-2">Contact</div>
+            <h2 class="display-6 fw-bold">Get In Touch</h2>
+            <p class="text-muted">Have a project in mind? Let's talk.</p>
+        </div>
+        <div class="row justify-content-center g-4">
+            <div class="col-md-4 text-center">
+                <div class="contact-card p-4 bg-white rounded-3 shadow-sm h-100">
+                    <i class="bi bi-envelope-fill text-primary fs-2 mb-3 d-block"></i>
+                    <h6 class="fw-bold">Email</h6>
+                    <a href="mailto:john@example.com" class="text-muted text-decoration-none">áimiliostsiaprazis@gmail.com</a>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="contact-card p-4 bg-white rounded-3 shadow-sm h-100">
+                    <i class="bi bi-linkedin text-primary fs-2 mb-3 d-block"></i>
+                    <h6 class="fw-bold">LinkedIn</h6>
+                    <a href="#" class="text-muted text-decoration-none">linkedin.com/in/aimiliostsiaprazis</a>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="contact-card p-4 bg-white rounded-3 shadow-sm h-100">
+                    <i class="bi bi-github text-primary fs-2 mb-3 d-block"></i>
+                    <h6 class="fw-bold">GitHub</h6>
+                    <a href="#" class="text-muted text-decoration-none">github.com/AimiliosTsiaprazis</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* // Footer  *@
+<div class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p class="mb-0 opacity-75 small">© @DateTime.Now.Year Aimilios Tsiaprazis. Built with ASP.NET Core &amp; Bootstrap.</p>
+    </div>
+</div>
+
+@* // Modals *@
+
+@* // Add / Edit Project Modal *@
+<div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addProjectModalLabel">
+                    <i class="bi bi-folder-plus me-2"></i><span id="projectModalTitle">Add Project</span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="projectId" value="" />
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="projectTitle" maxlength="150" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Description <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="projectDescription" rows="3" maxlength="1000" required></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Tech Stack</label>
+                        <input type="text" class="form-control" id="projectTechStack" placeholder="e.g. ASP.NET Core, MSSQL, Bootstrap" maxlength="300" />
+                        <div class="form-text">Separate technologies with commas.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Live URL</label>
+                        <input type="url" class="form-control" id="projectUrl" placeholder="https://..." />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">GitHub URL</label>
+                        <input type="url" class="form-control" id="projectGitHubUrl" placeholder="https://github.com/..." />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Image URL</label>
+                        <input type="url" class="form-control" id="projectImageUrl" placeholder="https://..." />
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="projectIsFeatured" />
+                            <label class="form-check-label" for="projectIsFeatured">Mark as Featured</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveProjectBtn">
+                    <i class="bi bi-save me-2"></i>Save Project
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* // Add / Edit Skill Modal *@
+<div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addSkillModalLabel">
+                    <i class="bi bi-star-fill me-2"></i><span id="skillModalTitle">Add Skill</span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="skillId" value="" />
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Skill Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="skillName" maxlength="100" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Category <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="skillCategory" maxlength="100" placeholder="e.g. Backend, Frontend, Tools" required />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Proficiency Level: <span id="skillLevelDisplay">80</span>%</label>
+                        <input type="range" class="form-range" id="skillLevel" min="1" max="100" value="80" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Sort Order</label>
+                        <input type="number" class="form-control" id="skillSortOrder" value="0" min="0" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveSkillBtn">
+                    <i class="bi bi-save me-2"></i>Save Skill
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* // Confirm Delete Modal *@
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title"><i class="bi bi-exclamation-triangle me-2"></i>Confirm Delete</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Delete <strong id="deleteTargetName"></strong>? This cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger btn-sm" id="confirmDeleteBtn">
+                    <i class="bi bi-trash me-1"></i>Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* // Toast Notification *@
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:1100">
+    <div id="toastNotification" class="toast align-items-center border-0" role="alert" aria-live="assertive">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage"></div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    // Expose CSRF token for JS
+    const CSRF_TOKEN = '@Html.AntiForgeryToken()'.match(/value="([^"]+)"/)?.[1] ?? '';
+</script>
+}
