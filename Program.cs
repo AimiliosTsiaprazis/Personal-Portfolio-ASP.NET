@@ -5,8 +5,12 @@ using PortfolioApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ENV Variables
+builder.Configuration.AddEnvironmentVariables();
+
 // MVC + Razor Views
 builder.Services.AddControllersWithViews();
+
 
 // Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -18,11 +22,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
         options.SlidingExpiration = true;
         options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+        // safer dev/prod handling
+        options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+            ? CookieSecurePolicy.None
+            : CookieSecurePolicy.Always;
+
         options.Cookie.SameSite = SameSiteMode.Strict;
     });
 
 builder.Services.AddAuthorization();
+
 
 // Dependency Injection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -32,12 +42,14 @@ builder.Services.AddScoped<IProjectRepository>(sp => new ProjectRepository(conne
 builder.Services.AddScoped<ISkillRepository>(sp => new SkillRepository(connectionString));
 builder.Services.AddScoped<IAuthService>(sp => new AuthService(connectionString));
 
+
 // Swagger API Documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Portfolio API", Version = "v1" });
 });
+
 
 // Session
 builder.Services.AddSession(options =>
@@ -47,13 +59,16 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+
 // Anti Forgery
 builder.Services.AddAntiforgery(options =>
 {
     options.HeaderName = "X-CSRF-TOKEN";
 });
 
+
 var app = builder.Build();
+
 
 // Database with Error handling
 using (var scope = app.Services.CreateScope())
@@ -68,6 +83,7 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "An error occurred while initializing the database.");
     }
 }
+
 
 // Middleware & Swagger
 if (!app.Environment.IsDevelopment())
@@ -87,10 +103,13 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 // Security Headers
 app.Use(async (context, next) =>
@@ -101,6 +120,7 @@ app.Use(async (context, next) =>
     context.Response.Headers.Append("Referrer-Policy", "strict-origin-when-cross-origin");
     await next();
 });
+
 
 // Routes
 app.MapControllerRoute(
