@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // ENV Variables
 builder.Configuration.AddEnvironmentVariables();
 
+// Adding database connection string from environment variable
+var envConnectionString = Environment.GetEnvironmentVariable("DATABASE");
+
 // MVC + Razor Views
 builder.Services.AddControllersWithViews();
 
