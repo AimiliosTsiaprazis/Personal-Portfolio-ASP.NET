@@ -84,6 +84,8 @@ The `DatabaseInitializer` runs automatically on startup and:
 - Seeds one admin user.
 - Seeds sample projects and skills.
 
+- If there are errors with the Database, just create manually the "PortfolioDB" Database in the MSSQL Dashboard
+
 ---
 
  Log In
